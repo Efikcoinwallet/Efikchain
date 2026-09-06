@@ -1,0 +1,1321 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Efikcoin Ecosystem — Mainnet, Testnet, Explorer & Global Infrastructure</title>
+  <meta name="description" content="Efikcoin blockchain ecosystem website featuring Mainnet Chain ID 1997, Testnet Chain ID 1996, explorer, infrastructure, RPC endpoints, validator onboarding, token distribution notes, and EfikcoinScan." />
+  <meta name="theme-color" content="#0e1b16" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#08110e;
+      --bg-soft:#0d1814;
+      --panel:#102019;
+      --panel-2:#13261e;
+      --text:#ecf3ee;
+      --muted:#a6b8ae;
+      --line:rgba(218,241,226,0.12);
+      --gold:#d9b86a;
+      --mint:#65e7b2;
+      --deep-mint:#1f8f6a;
+      --danger:#ff8d7a;
+      --shadow:0 20px 60px rgba(0,0,0,0.32);
+      --radius:22px;
+      --max:1240px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(101,231,178,0.11), transparent 28%),
+        radial-gradient(circle at 80% 12%, rgba(217,184,106,0.12), transparent 26%),
+        linear-gradient(180deg, #07100d 0%, #0a1511 40%, #09120f 100%);
+      color:var(--text);
+      font-family:"Space Grotesk", sans-serif;
+      line-height:1.5;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size:38px 38px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,0.35), transparent 75%);
+      opacity:.22;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img,svg{display:block;max-width:100%}
+    button,input,textarea{font:inherit}
+
+    .container{
+      width:min(calc(100% - 2rem), var(--max));
+      margin-inline:auto;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--gold);
+    }
+
+    .eyebrow::before{
+      content:"";
+      width:34px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    h1,h2,h3{
+      font-family:"Cormorant Garamond", serif;
+      line-height:.95;
+      margin:0;
+      font-weight:700;
+      letter-spacing:-0.03em;
+    }
+
+    p{margin:0;color:var(--muted)}
+
+    .section{
+      padding:clamp(4.5rem, 8vw, 8rem) 0;
+      position:relative;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.in-view{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:blur(16px);
+      background:rgba(8,17,14,0.72);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav{
+      min-height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:.9rem;
+      min-width:0;
+    }
+
+    .brand-mark{
+      width:48px;
+      height:48px;
+      border-radius:14px;
+      background:
+        linear-gradient(145deg, rgba(217,184,106,.16), rgba(101,231,178,.14)),
+        #12221b;
+      border:1px solid rgba(255,255,255,.08);
+      display:grid;
+      place-items:center;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .brand-mark::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(217,184,106,.3), transparent 38%),
+        radial-gradient(circle at 70% 70%, rgba(101,231,178,.25), transparent 36%);
+    }
+
+    .brand-mark span{
+      position:relative;
+      font-weight:700;
+      color:var(--text);
+      letter-spacing:.05em;
+    }
+
+    .brand-text strong{
+      display:block;
+      font-size:1rem;
+      line-height:1.05;
+    }
+
+    .brand-text small{
+      display:block;
+      color:var(--muted);
+      font-size:.76rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      margin-top:.18rem;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:1.15rem;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      font-size:.95rem;
+      transition:.25s ease;
+      position:relative;
+    }
+
+    .nav-links a:hover{color:var(--text)}
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0; bottom:-.35rem;
+      width:0; height:1px;
+      background:var(--mint);
+      transition:width .25s ease;
+    }
+
+    .nav-links a:hover::after{width:100%}
+
+    .nav-cta{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      padding:.88rem 1.1rem;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--gold), #f0d69a);
+      color:#1a1407;
+      font-weight:700;
+      box-shadow:0 12px 32px rgba(217,184,106,.22);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+
+    .nav-cta:hover{
+      transform:translateY(-2px) scale(1.01);
+      box-shadow:0 18px 38px rgba(217,184,106,.28);
+    }
+
+    .hero{
+      padding:clamp(3rem, 6vw, 5rem) 0 3rem;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:clamp(1.2rem, 3vw, 2rem);
+      align-items:stretch;
+    }
+
+    .hero-copy,
+    .hero-side{
+      border:1px solid var(--line);
+      border-radius:calc(var(--radius) + 6px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)),
+        rgba(13,24,20,.78);
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-copy{
+      padding:clamp(1.6rem, 4vw, 3rem);
+      min-height:640px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .hero-copy::before,
+    .hero-side::before{
+      content:"";
+      position:absolute;
+      inset:auto -10% -10% auto;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(101,231,178,.12), transparent 70%);
+      filter:blur(6px);
+    }
+
+    .hero-title{
+      font-size:clamp(3.4rem, 8vw, 7rem);
+      max-width:11ch;
+      text-wrap:balance;
+    }
+
+    .hero-title .accent{color:var(--gold)}
+    .hero-lead{
+      margin-top:1.3rem;
+      max-width:58ch;
+      font-size:clamp(1rem, 1.5vw, 1.18rem);
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.9rem;
+      margin-top:2rem;
+    }
+
+    .button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.65rem;
+      padding:1rem 1.22rem;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-weight:700;
+      transition:.22s ease;
+      cursor:pointer;
+      min-height:54px;
+    }
+
+    .button.primary{
+      background:linear-gradient(135deg, var(--mint), #8ef2cb);
+      color:#062018;
+      box-shadow:0 16px 40px rgba(101,231,178,.2);
+    }
+
+    .button.primary:hover{
+      transform:translateY(-2px) scale(1.01);
+      box-shadow:0 24px 46px rgba(101,231,178,.25);
+    }
+
+    .button.ghost{
+      background:rgba(255,255,255,.02);
+      color:var(--text);
+      border-color:var(--line);
+    }
+
+    .button.ghost:hover{
+      background:rgba(255,255,255,.05);
+      transform:translateY(-2px);
+    }
+
+    .signal-row{
+      margin-top:2rem;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:1rem;
+    }
+
+    .signal{
+      padding:1rem;
+      border-top:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.02), transparent);
+    }
+
+    .signal strong{
+      display:block;
+      font-size:1.4rem;
+      color:var(--text);
+    }
+
+    .signal span{
+      display:block;
+      margin-top:.35rem;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    .hero-side{
+      padding:1.2rem;
+      display:grid;
+      grid-template-rows:auto auto 1fr auto;
+      gap:1rem;
+      min-height:640px;
+    }
+
+    .network-panel{
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:1rem;
+      background:linear-gradient(180deg, rgba(18,34,27,.95), rgba(10,20,16,.95));
+    }
+
+    .network-panel h3{
+      font-size:2rem;
+      margin-bottom:.7rem;
+    }
+
+    .network-meta{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:.8rem;
+    }
+
+    .meta-pill{
+      padding:.95rem;
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.05);
+    }
+
+    .meta-pill small{
+      display:block;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:.7rem;
+      margin-bottom:.3rem;
+    }
+
+    .meta-pill strong{
+      display:block;
+      font-size:1.15rem;
+      word-break:break-word;
+    }
+
+    .chain-visual{
+      position:relative;
+      min-height:220px;
+      border-radius:24px;
+      border:1px solid var(--line);
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 30% 35%, rgba(217,184,106,.22), transparent 24%),
+        radial-gradient(circle at 70% 68%, rgba(101,231,178,.22), transparent 22%),
+        linear-gradient(135deg, #112019, #0d1713 55%, #0a120f);
+    }
+
+    .chain-visual svg{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+    }
+
+    .status-strip{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1rem;
+    }
+
+    .status-box{
+      padding:1rem;
+      border-radius:20px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.025);
+    }
+
+    .status-box small{
+      color:var(--muted);
+      display:block;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:.7rem;
+    }
+
+    .status-box strong{
+      display:block;
+      margin-top:.4rem;
+      font-size:1.1rem;
+      color:var(--text);
+    }
+
+    .section-head{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:1rem;
+      align-items:end;
+      margin-bottom:2rem;
+    }
+
+    .section-head h2{
+      font-size:clamp(2.3rem, 5vw, 4.6rem);
+      max-width:10ch;
+    }
+
+    .section-head p{
+      max-width:52ch;
+      justify-self:end;
+      text-align:right;
+    }
+
+    .architecture{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:1.2rem;
+      align-items:stretch;
+    }
+
+    .stack-map{
+      border-radius:28px;
+      border:1px solid var(--line);
+      padding:1.2rem;
+      background:linear-gradient(180deg, rgba(19,38,30,.85), rgba(10,18,15,.92));
+      position:relative;
+      overflow:hidden;
+    }
+
+    .lane{
+      display:grid;
+      grid-template-columns:180px 1fr;
+      gap:1rem;
+      padding:1.05rem 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .lane:last-child{border-bottom:none}
+
+    .lane-label{
+      color:var(--gold);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:.75rem;
+      padding-top:.2rem;
+    }
+
+    .lane-content strong{
+      display:block;
+      font-size:1.15rem;
+      margin-bottom:.35rem;
+    }
+
+    .lane-content p{
+      max-width:60ch;
+      font-size:.96rem;
+    }
+
+    .infra-note{
+      border-radius:28px;
+      border:1px solid var(--line);
+      padding:1.4rem;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)),
+        rgba(16,32,25,.8);
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    }
+
+    .infra-note h3{
+      font-size:2rem;
+    }
+
+    .code-block{
+      background:#07100d;
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:20px;
+      padding:1rem;
+      color:#dff5ea;
+      font-size:.92rem;
+      overflow:auto;
+      line-height:1.7;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      white-space:pre-wrap;
+      word-break:break-word;
+    }
+
+    .warning{
+      padding:1rem 1.1rem;
+      border-left:3px solid var(--danger);
+      background:rgba(255,141,122,.06);
+      border-radius:0 16px 16px 0;
+      color:#ffd7cf;
+      font-size:.94rem;
+    }
+
+    .tools-grid{
+      display:grid;
+      grid-template-columns:repeat(12, 1fr);
+      gap:1rem;
+    }
+
+    .tool{
+      border-radius:26px;
+      border:1px solid var(--line);
+      padding:1.3rem;
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      min-height:240px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .tool.large{grid-column:span 7}
+    .tool.tall{grid-column:span 5}
+    .tool.wide{grid-column:span 12}
+    .tool h3{font-size:2rem;margin-bottom:.6rem}
+    .tool p{max-width:55ch}
+    .tool .button{margin-top:1.1rem}
+
+    .list{
+      margin-top:1rem;
+      display:grid;
+      gap:.75rem;
+    }
+
+    .list-item{
+      display:flex;
+      align-items:flex-start;
+      gap:.75rem;
+      color:var(--muted);
+      font-size:.96rem;
+    }
+
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:linear-gradient(135deg, var(--mint), var(--gold));
+      margin-top:.35rem;
+      flex:0 0 auto;
+      box-shadow:0 0 0 6px rgba(101,231,178,.07);
+    }
+
+    .explorer{
+      border-radius:30px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(17,32,25,.96), rgba(9,18,14,.94));
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .explorer-top{
+      padding:1.2rem;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:1rem;
+      align-items:center;
+    }
+
+    .explorer-top h2{
+      font-size:clamp(2.4rem, 5vw, 4.8rem);
+    }
+
+    .search-shell{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:.7rem;
+      margin-top:1rem;
+    }
+
+    .search-shell input{
+      width:100%;
+      background:#07100d;
+      border:1px solid rgba(255,255,255,.08);
+      color:var(--text);
+      border-radius:999px;
+      padding:1rem 1.1rem;
+      outline:none;
+    }
+
+    .search-shell input:focus{
+      border-color:rgba(101,231,178,.45);
+      box-shadow:0 0 0 4px rgba(101,231,178,.08);
+    }
+
+    .explorer-grid{
+      display:grid;
+      grid-template-columns:290px 1fr;
+      min-height:560px;
+    }
+
+    .explorer-sidebar{
+      border-right:1px solid rgba(255,255,255,.06);
+      padding:1.1rem;
+      display:grid;
+      gap:.9rem;
+      align-content:start;
+      background:rgba(255,255,255,.015);
+    }
+
+    .side-chip{
+      padding:1rem;
+      border-radius:18px;
+      background:#0b1511;
+      border:1px solid rgba(255,255,255,.05);
+    }
+
+    .side-chip small{
+      color:var(--muted);
+      display:block;
+      text-transform:uppercase;
+      letter-spacing:.13em;
+      font-size:.7rem;
+    }
+
+    .side-chip strong{
+      display:block;
+      margin-top:.35rem;
+      font-size:1.12rem;
+      word-break:break-word;
+    }
+
+    .explorer-main{
+      padding:1.1rem;
+      display:grid;
+      gap:1rem;
+      align-content:start;
+    }
+
+    .result-panel{
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:22px;
+      background:rgba(255,255,255,.02);
+      padding:1.1rem;
+    }
+
+    .result-panel h3{
+      font-size:2rem;
+      margin-bottom:.8rem;
+    }
+
+    .kv{
+      display:grid;
+      grid-template-columns:190px 1fr;
+      gap:.7rem 1rem;
+      font-size:.96rem;
+      padding:.4rem 0;
+      border-bottom:1px solid rgba(255,255,255,.05);
+    }
+
+    .kv:last-child{border-bottom:none}
+    .kv span:first-child{color:var(--muted)}
+    .mono{
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      word-break:break-word;
+    }
+
+    .timeline{
+      display:grid;
+      gap:1rem;
+    }
+
+    .timeline-row{
+      display:grid;
+      grid-template-columns:110px 1fr;
+      gap:1rem;
+      align-items:start;
+      padding:1rem 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .timeline-row:last-child{border-bottom:none}
+    .timeline-row strong{
+      color:var(--gold);
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+    }
+
+    .cta-band{
+      border-radius:34px;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(217,184,106,.16), transparent 25%),
+        radial-gradient(circle at 82% 62%, rgba(101,231,178,.15), transparent 28%),
+        linear-gradient(135deg, rgba(15,28,22,.95), rgba(9,17,14,.98));
+      padding:clamp(1.6rem, 4vw, 3rem);
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:1rem;
+      align-items:center;
+    }
+
+    .cta-band h2{
+      font-size:clamp(2.4rem, 5vw, 4.4rem);
+      max-width:11ch;
+    }
+
+    footer{
+      padding:2rem 0 4rem;
+      color:var(--muted);
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:1rem;
+      align-items:end;
+      border-top:1px solid rgba(255,255,255,.08);
+      padding-top:1.5rem;
+    }
+
+    .legal{
+      font-size:.92rem;
+      max-width:65ch;
+    }
+
+    .stagger-1{animation:fadeUp .8s ease both .08s}
+    .stagger-2{animation:fadeUp .8s ease both .18s}
+    .stagger-3{animation:fadeUp .8s ease both .28s}
+    .stagger-4{animation:fadeUp .8s ease both .38s}
+    .stagger-5{animation:fadeUp .8s ease both .48s}
+
+    @keyframes fadeUp{
+      from{opacity:0; transform:translateY(24px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    @media (max-width: 1080px){
+      .hero-grid,
+      .architecture,
+      .cta-band,
+      .footer-grid,
+      .section-head,
+      .explorer-grid{
+        grid-template-columns:1fr;
+      }
+
+      .section-head p{
+        justify-self:start;
+        text-align:left;
+      }
+
+      .tool.large,
+      .tool.tall,
+      .tool.wide{
+        grid-column:span 12;
+      }
+
+      .explorer-sidebar{
+        border-right:none;
+        border-bottom:1px solid rgba(255,255,255,.06);
+      }
+    }
+
+    @media (max-width: 760px){
+      .nav{
+        align-items:flex-start;
+        padding:1rem 0;
+        flex-direction:column;
+      }
+
+      .nav-links{
+        width:100%;
+        justify-content:flex-start;
+      }
+
+      .signal-row,
+      .status-strip,
+      .network-meta,
+      .search-shell{
+        grid-template-columns:1fr;
+      }
+
+      .lane,
+      .kv,
+      .timeline-row{
+        grid-template-columns:1fr;
+      }
+
+      .hero-copy,
+      .hero-side{
+        min-height:auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#top" class="brand" aria-label="Efikcoin home">
+        <div class="brand-mark" aria-hidden="true"><span>EF</span></div>
+        <div class="brand-text">
+          <strong>Efikcoin Ecosystem</strong>
+          <small>Mainnet 1997 · Testnet 1996</small>
+        </div>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#network">Network</a>
+        <a href="#tools">Tools</a>
+        <a href="#explorer">EfikcoinScan</a>
+        <a href="#tokenomics">Genesis</a>
+        <a href="#launch">Launch</a>
+        <a class="nav-cta" href="#explorer">Open Explorer</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <article class="hero-copy">
+          <div>
+            <span class="eyebrow stagger-1">Blockchain infrastructure for real-world value</span>
+            <h1 class="hero-title stagger-2">Build the <span class="accent">Efikcoin</span> network for humanity at global scale.</h1>
+            <p class="hero-lead stagger-3">
+              A polished ecosystem interface for Efikcoin Mainnet and Testnet: network identity, validator onboarding, RPC planning, wallet integration, genesis allocation notes, and a dedicated <strong>EfikcoinScan</strong> explorer experience designed to make the chain credible, transparent, and easy to use.
+            </p>
+            <div class="hero-actions stagger-4">
+              <a class="button primary" href="#launch">Launch Blueprint</a>
+              <a class="button ghost" href="#explorer">Try EfikcoinScan</a>
+            </div>
+          </div>
+
+          <div class="signal-row stagger-5" aria-label="Network highlights">
+            <div class="signal">
+              <strong>1997</strong>
+              <span>Mainnet chain ID</span>
+            </div>
+            <div class="signal">
+              <strong>1996</strong>
+              <span>Testnet chain ID</span>
+            </div>
+            <div class="signal">
+              <strong>efikcoin.com</strong>
+              <span>Primary domain host</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="hero-side">
+          <div class="network-panel stagger-2">
+            <h3>Network Identity</h3>
+            <div class="network-meta">
+              <div class="meta-pill">
+                <small>Domain</small>
+                <strong>efikcoin.com</strong>
+              </div>
+              <div class="meta-pill">
+                <small>Server / VPS</small>
+                <strong>34.32.145.2</strong>
+              </div>
+              <div class="meta-pill">
+                <small>Mainnet</small>
+                <strong>Chain ID 1997</strong>
+              </div>
+              <div class="meta-pill">
+                <small>Testnet</small>
+                <strong>Chain ID 1996</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="chain-visual stagger-3" aria-hidden="true">
+            <svg viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#d9b86a" stop-opacity="0.95"/>
+                  <stop offset="100%" stop-color="#65e7b2" stop-opacity="0.95"/>
+                </linearGradient>
+              </defs>
+              <path d="M80 210C160 110 280 90 380 170C470 240 580 260 720 138" stroke="url(#g1)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6 10"/>
+              <path d="M90 280C220 300 300 230 400 210C510 190 590 260 710 300" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4 10"/>
+              <circle cx="120" cy="170" r="18" fill="#0d1814" stroke="#d9b86a" stroke-width="2"/>
+              <circle cx="250" cy="126" r="14" fill="#0d1814" stroke="#65e7b2" stroke-width="2"/>
+              <circle cx="398" cy="177" r="22" fill="#0d1814" stroke="#d9b86a" stroke-width="2.5"/>
+              <circle cx="565" cy="220" r="15" fill="#0d1814" stroke="#65e7b2" stroke-width="2"/>
+              <circle cx="700" cy="150" r="18" fill="#0d1814" stroke="#d9b86a" stroke-width="2"/>
+              <circle cx="190" cy="275" r="12" fill="#0d1814" stroke="rgba(255,255,255,0.36)" stroke-width="1.5"/>
+              <circle cx="470" cy="255" r="12" fill="#0d1814" stroke="rgba(255,255,255,0.36)" stroke-width="1.5"/>
+              <circle cx="640" cy="290" r="12" fill="#0d1814" stroke="rgba(255,255,255,0.36)" stroke-width="1.5"/>
+            </svg>
+          </div>
+
+          <div class="status-strip stagger-4">
+            <div class="status-box">
+              <small>Genesis Address</small>
+              <strong class="mono">0xC5AD5cfcF81AD63a94227334b898eafCe6B27cCA</strong>
+            </div>
+            <div class="status-box">
+              <small>Explorer</small>
+              <strong>EfikcoinScan</strong>
+            </div>
+          </div>
+
+          <div class="status-box stagger-5">
+            <small>Mission</small>
+            <strong>Transparent digital infrastructure that can serve people, communities, builders, and global commerce.</strong>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="network">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Network architecture</span>
+            <h2>Mainnet, testnet, explorer, and trust layer.</h2>
+          </div>
+          <p>
+            This website presents the Efikcoin ecosystem as a full blockchain platform: public identity, endpoints, launch sequence, validator participation, explorer visibility, and clear chain metadata.
+          </p>
+        </div>
+
+        <div class="architecture">
+          <div class="stack-map reveal">
+            <div class="lane">
+              <div class="lane-label">Layer 01</div>
+              <div class="lane-content">
+                <strong>Efikcoin Mainnet</strong>
+                <p>Production chain identity configured around <strong>Chain ID 1997</strong>, intended for live transactions, token issuance, final validator topology, and public-facing explorer indexing.</p>
+              </div>
+            </div>
+            <div class="lane">
+              <div class="lane-label">Layer 02</div>
+              <div class="lane-content">
+                <strong>Efikcoin Testnet</strong>
+                <p>Developer-safe environment on <strong>Chain ID 1996</strong> for wallet testing, smart contract staging, explorer verification, onboarding scripts, and upgrade rehearsal before mainnet promotion.</p>
+              </div>
+            </div>
+            <div class="lane">
+              <div class="lane-label">Layer 03</div>
+              <div class="lane-content">
+                <strong>EfikcoinScan Explorer</strong>
+                <p>A branded explorer interface for addresses, transactions, blocks, validator activity, and token transfers. The embedded prototype below demonstrates the UX and data structure to expose publicly.</p>
+              </div>
+            </div>
+            <div class="lane">
+              <div class="lane-label">Layer 04</div>
+              <div class="lane-content">
+                <strong>RPC, APIs & Wallet Access</strong>
+                <p>Public RPC, WebSocket, explorer API, faucet on testnet, and wallet network presets should be published under subdomains once backend services are configured and secured behind TLS and rate limiting.</p>
+              </div>
+            </div>
+            <div class="lane">
+              <div class="lane-label">Layer 05</div>
+              <div class="lane-content">
+                <strong>Governance & Utility</strong>
+                <p>Position Efikcoin as infrastructure for payments, communities, creators, aid, and transparent economic coordination—delivering practical value rather than speculation-only branding.</p>
+              </div>
+            </div>
+          </div>
+
+          <aside class="infra-note reveal">
+            <span class="eyebrow">Deployment references</span>
+            <h3>Operational notes</h3>
+            <div class="code-block">Primary domain: efikcoin.com
+VPS / host reference: https://34.32.145.2/
+Mainnet chainId: 1997
+Testnet chainId: 1996
+Genesis allocation address:
+0xC5AD5cfcF81AD63a94227334b898eafCe6B27cCA</div>
+            <div class="warning">
+              I can present the ecosystem, UX, chain metadata, genesis example, and explorer interface here. But I cannot actually deploy servers, modify your VPS, install a node, write to your live genesis, or “embed into the system” from this chat. A qualified blockchain/devops engineer should apply the real node, RPC, DNS, SSL, explorer, and security setup on your infrastructure.
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tools">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Ecosystem tools</span>
+            <h2>A complete blockchain ecosystem surface.</h2>
+          </div>
+          <p>
+            Designed as a launch-ready ecosystem layer around the chain: validator docs, wallet setup, explorer access, RPC publication, token visibility, and public trust signals.
+          </p>
+        </div>
+
+        <div class="tools-grid">
+          <article class="tool large reveal">
+            <span class="eyebrow">Core tool</span>
+            <h3>EfikcoinScan Explorer</h3>
+            <p>
+              Search addresses, blocks, transactions, token transfers, and network metadata. This site includes an interactive explorer panel to demonstrate the experience you can brand as the official public explorer.
+            </p>
+            <div class="list">
+              <div class="list-item"><span class="dot"></span><span>Address lookups and balances</span></div>
+              <div class="list-item"><span class="dot"></span><span>Recent blocks and validator visibility</span></div>
+              <div class="list-item"><span class="dot"></span><span>Transaction hash inspection and receipt detail</span></div>
+              <div class="list-item"><span class="dot"></span><span>Chain metadata for mainnet and testnet</span></div>
+            </div>
+            <a class="button primary" href="#explorer">Open EfikcoinScan</a>
+          </article>
+
+          <article class="tool tall reveal">
+            <span class="eyebrow">Network access</span>
+            <h3>Wallet & RPC onboarding</h3>
+            <p>
+              Publish official network parameters so users can add Efikcoin to MetaMask and compatible wallets without confusion.
+            </p>
+            <div class="code-block">Network Name: Efikcoin Mainnet
+Chain ID: 1997
+Currency Symbol: EFK
+RPC URL: https://rpc.efikcoin.com
+Block Explorer: https://scan.efikcoin.com
+
+Network Name: Efikcoin Testnet
+Chain ID: 1996
+Currency Symbol: tEFK
+RPC URL: https://testnet-rpc.efikcoin.com
+Block Explorer: https://testnet-scan.efikcoin.com</div>
+          </article>
+
+          <article class="tool wide reveal" id="tokenomics">
+            <span class="eyebrow">Genesis & token layer</span>
+            <h3>Genesis allocation starter example</h3>
+            <p>
+              Below is a sample genesis allocation pattern showing how your provided address could appear in a genesis configuration. This is illustrative website content only and should be reviewed by your blockchain engineer before any real network initialization.
+            </p>
+            <div class="code-block">{
+  "config": {
+    "chainId": 1997
+  },
+  "alloc": {
+    "0xC5AD5cfcF81AD63a94227334b898eafCe6B27cCA": {
+      "balance": "1000000000000000000000000000"
+    }
+  }
+}</div>
+            <div class="list">
+              <div class="list-item"><span class="dot"></span><span>Use a carefully audited total supply model.</span></div>
+              <div class="list-item"><span class="dot"></span><span>Document vesting, treasury, validator rewards, ecosystem grants, and community distributions publicly.</span></div>
+              <div class="list-item"><span class="dot"></span><span>Freeze your final genesis only after validator coordination and multi-party review.</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="explorer">
+      <div class="container">
+        <div class="explorer reveal">
+          <div class="explorer-top">
+            <div>
+              <span class="eyebrow">Official public explorer concept</span>
+              <h2>EfikcoinScan</h2>
+              <p style="margin-top:.6rem;max-width:64ch;">
+                Search a transaction hash, block number, or the genesis address to preview how Efikcoin’s explorer layer can present transparency and trust.
+              </p>
+            </div>
+            <div style="justify-self:end;max-width:420px;width:100%;">
+              <form class="search-shell" id="searchForm">
+                <input id="searchInput" type="text" aria-label="Search address, transaction hash, or block" placeholder="Search address, tx hash, or block…" />
+                <button class="button primary" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="explorer-grid">
+            <aside class="explorer-sidebar">
+              <div class="side-chip">
+                <small>Explorer Name</small>
+                <strong>EfikcoinScan</strong>
+              </div>
+              <div class="side-chip">
+                <small>Mainnet Chain</small>
+                <strong>1997</strong>
+              </div>
+              <div class="side-chip">
+                <small>Testnet Chain</small>
+                <strong>1996</strong>
+              </div>
+              <div class="side-chip">
+                <small>Tracked Address</small>
+                <strong class="mono">0xC5AD5cfcF81AD63a94227334b898eafCe6B27cCA</strong>
+              </div>
+              <div class="side-chip">
+                <small>Suggested Host</small>
+                <strong>scan.efikcoin.com</strong>
+              </div>
+            </aside>
+
+            <div class="explorer-main">
+              <section class="result-panel" aria-live="polite">
+                <h3>Search Result</h3>
+                <div id="resultContent">
+                  <div class="kv"><span>Status</span><span>Ready. Enter a block number, address, or transaction hash.</span></div>
+                  <div class="kv"><span>Tip</span><span>Try searching <span class="mono">0xC5AD5cfcF81AD63a94227334b898eafCe6B27cCA</span> or block <span class="mono">1</span>.</span></div>
+                </div>
+              </section>
+
+              <section class="result-panel">
+                <h3>Recent Blocks</h3>
+                <div class="timeline">
+                  <div class="timeline-row">
+                    <strong>Block 1</strong>
+                    <div>
+                      <div class="kv"><span>Purpose</span><span>Genesis anchor / network initialization</span></div>
+                      <div class="kv"><span>Chain</span><span>Mainnet 1997</span></div>
+                    </div>
+                  </div>
+                  <div class="timeline-row">
+                    <strong>Block 2</strong>
+                    <div>
+                      <div class="kv"><span>Purpose</span><span>Initial validator confirmation</span></div>
+                      <div class="kv"><span>Transactions</span><span>2</span></div>
+                    </div>
+                  </div>
+                  <div class="timeline-row">
+                    <strong>Block 3</strong>
+                    <div>
+                      <div class="kv"><span>Purpose</span><span>Explorer indexing sample</span></div>
+                      <div class="kv"><span>Transactions</span><span>5</span></div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="result-panel">
+                <h3>Explorer API Endpoints to Publish</h3>
+                <div class="code-block">GET /api/blocks/latest
+GET /api/block/:number
+GET /api/tx/:hash
+GET /api/address/:address
+GET /api/token/:contract
+GET /api/stats/network</div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="launch">
+      <div class="container">
+        <div class="cta-band reveal">
+          <div>
+            <span class="eyebrow">Launch sequence</span>
+            <h2>From idea to a credible public blockchain brand.</h2>
+            <p style="margin-top:1rem;max-width:58ch;">
+              Finalize genesis, configure validators, secure the VPS, point DNS for efikcoin.com and explorer subdomains, issue TLS certificates, deploy RPC and explorer services, publish wallet metadata, and openly document utility, governance, and token distribution.
+            </p>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:.8rem;justify-content:flex-end;">
+            <a class="button primary" href="#network">Review Network</a>
+            <a class="button ghost" href="#top">Back to Top</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:1rem;">
+          <div class="brand-mark" aria-hidden="true"><span>EF</span></div>
+          <div class="brand-text">
+            <strong>Efikcoin Ecosystem</strong>
+            <small>Infrastructure • Transparency • Global Utility</small>
+          </div>
+        </div>
+        <p class="legal">
+          This website is a front-end concept and ecosystem presentation for Efikcoin. Any actual blockchain deployment, node setup, explorer backend, RPC publication, DNS configuration, SSL issuance, genesis creation, validator management, and production security must be performed on your real infrastructure by authorized operators.
+        </p>
+      </div>
+      <div style="text-align:right;">
+        <p>Domain target: <strong style="color:var(--text);">efikcoin.com</strong></p>
+        <p>Server reference: <strong style="color:var(--text);">34.32.145.2</strong></p>
+        <p>Mainnet/Testnet: <strong style="color:var(--text);">1997 / 1996</strong></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const knownAddress = "0xC5AD5cfcF81AD63a94227334b898eafCe6B27cCA".toLowerCase();
+    const txSample = "0x9f8e7d6c5b4a3210efik199700000000000000000000000000000000000001";
+    const resultContent = document.getElementById('resultContent');
+    const form = document.getElementById('searchForm');
+    const input = document.getElementById('searchInput');
+
+    function renderRows(rows){
+      resultContent.innerHTML = rows.map(([k,v]) => `
+        <div class="kv">
+          <span>${k}</span>
+          <span>${v}</span>
+        </div>
+      `).join('');
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = input.value.trim();
+      const lower = q.toLowerCase();
+
+      if(!q){
+        renderRows([
+          ["Status", "Please enter an address, transaction hash, or block number."],
+          ["Examples", `<span class="mono">${knownAddress}</span>, <span class="mono">1</span>, or <span class="mono">${txSample}</span>`]
+        ]);
+        return;
+      }
+
+      if(lower === knownAddress){
+        renderRows([
+          ["Type", "Address"],
+          ["Address", `<span class="mono">${q}</span>`],
+          ["Role", "Genesis allocation / tracked ecosystem address"],
+          ["Network", "Efikcoin Mainnet — Chain ID 1997"],
+          ["Balance", "1,000,000,000.000000000000000000 EFK (sample display)"],
+          ["Transactions", "12 indexed transactions (sample data)"],
+          ["Explorer Note", "Real balances and tx data require live RPC + explorer backend indexing."]
+        ]);
+        return;
+      }
+
+      if(/^\d+$/.test(q)){
+        renderRows([
+          ["Type", "Block"],
+          ["Block Number", q],
+          ["Chain", Number(q) < 1000 ? "Efikcoin Mainnet — Chain ID 1997" : "Efikcoin Testnet — Chain ID 1996"],
+          ["Timestamp", new Date().toLocaleString()],
+          ["Transactions", String((Number(q) % 7) + 1)],
+          ["Validator", `<span class="mono">0xValidator${q.padStart(4,'0')}</span>`],
+          ["Status", "Indexed sample block record"]
+        ]);
+        return;
+      }
+
+      if(lower.startsWith("0x") && q.length > 40){
+        renderRows([
+          ["Type", "Transaction"],
+          ["Hash", `<span class="mono">${q}</span>`],
+          ["Status", "Success (sample)"],
+          ["Block", String((q.length % 9) + 1)],
+          ["From", `<span class="mono">0x2A1f...9be4</span>`],
+          ["To", `<span class="mono">${knownAddress}</span>`],
+          ["Value", "250.00 EFK"],
+          ["Gas Used", "21000"],
+          ["Network", "Efikcoin Mainnet — Chain ID 1997"]
+        ]);
+        return;
+      }
+
+      renderRows([
+        ["Status", "No indexed sample match found."],
+        ["Suggestion", "Search the genesis address, a numeric block, or a transaction-style hash."],
+        ["Tracked Address", `<span class="mono">${knownAddress}</span>`]
+      ]);
+    });
+  </script>
+</body>
+</html>
